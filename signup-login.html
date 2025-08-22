@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNight - Creative Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #405DE6;
+            --secondary-color: #5851DB;
+            --accent-color: #E1306C;
+            --background: #FAFAFA;
+            --surface: #FFFFFF;
+            --text-primary: #262626;
+            --text-secondary: #8E8E8E;
+            --border: #DBDBDB;
+            --success: #4CB5F9;
+            --error: #ED4956;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .header-icons i {
+            font-size: 24px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        
+        /* Auth Screens */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-color: var(--background);
+        }
+        
+        .auth-card {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .auth-logo {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .auth-form input {
+            width: 100%;
+            padding: 14px 12px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background-color: #FAFAFA;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+        
+        .auth-form input:focus {
+            outline: none;
+            border-color: var(--text-secondary);
+        }
+        
+        .auth-form input.error {
+            border-color: var(--error);
+        }
+        
+        .error-message {
+            color: var(--error);
+            font-size: 12px;
+            text-align: left;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .auth-btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .auth-btn:disabled {
+            background-color: #B2DFFC;
+            cursor: not-allowed;
+        }
+        
+        .auth-separator {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: var(--text-secondary);
+        }
+        
+        .auth-separator::before,
+        .auth-separator::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background-color: var(--border);
+        }
+        
+        .auth-separator span {
+            padding: 0 16px;
+            font-size: 14px;
+        }
+        
+        .auth-facebook {
+            color: #385185;
+            font-weight: 600;
+            margin-bottom: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-facebook i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        .auth-forgot {
+            color: #00376b;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        
+        .auth-switch {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .auth-switch a {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        /* Profile Auth Section */
+        .profile-auth {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .profile-auth-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .profile-auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .profile-auth-btn {
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .profile-auth-btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .profile-auth-btn.secondary {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        
+        /* Content Area */
+        .content {
+            margin-top: 60px;
+            padding: 16px;
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .nav-item i {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+        
+        .nav-item.active i {
+            color: var(--primary-color);
+        }
+        
+        .nav-item span {
+            font-size: 10px;
+            margin-top: 4px;
+            color: var(--text-primary);
+        }
+        
+        .nav-item.active span {
+            color: var(--primary-color);
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .auth-card {
+                border: none;
+                box-shadow: none;
+                background-color: transparent;
+            }
+            
+            .auth-switch {
+                border: none;
+                background-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="auth-container" id="login-screen">
+        <div class="auth-card">
+            <div class="auth-logo">CNight</div>
+            <form class="auth-form" id="login-form">
+                <div class="form-group">
+                    <input type="text" id="login-username" placeholder="Phone number, username, or email" required>
+                    <div class="error-message" id="login-username-error">Please enter a valid username or email</div>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <div class="error-message" id="login-password-error">Password must be at least 6 characters</div>
+                </div>
+                <button type="submit" class="auth-btn">Log in</button>
+            </form>
+            <div class="auth-separator">
+                <span>OR</span>
+            </div>
+            <div class="auth-facebook">
+                <i class="fab fa-facebook-square"></i> Log in with Facebook
+            </div>
+            <div class="auth-forgot" id="forgot-password">Forgot password?</div>
+        </div>
+        <div class="auth-switch">
+            Don't have an account? <a id="switch-to-signup">Sign up</a>
+        </div>
+    </div>
+
+    <!-- Signup Screen -->
+    <div class="auth-container hidden" id="signup-screen">
+        <div class="auth-card">
+            <div class="auth-logo">CNight</div>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Sign up to see photos and videos from your creative community.</p>
+            <form class="auth-form" id="signup-form">
+                <div class="form-group">
+                    <input type="email" id="signup-email" placeholder="Email" required>
+                    <div class="error-message" id="signup-email-error">Please enter a valid email address</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="signup-fullname" placeholder="Full Name" required>
+                    <div class="error-message" id="signup-fullname-error">Please enter your full name</div>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="signup-username" placeholder="Username" required>
+                    <div class="error-message" id="signup-username-error">Username must be at least 3 characters</div>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="signup-password" placeholder="Password" required>
+                    <div class="error-message" id="signup-password-error">Password must be at least 6 characters</div>
+                </div>
+                <button type="submit" class="auth-btn">Sign up</button>
+            </form>
+            <div class="auth-separator">
+                <span>OR</span>
+            </div>
+            <div class="auth-facebook">
+                <i class="fab fa-facebook-square"></i> Sign up with Facebook
+            </div>
+            <p style="color: var(--text-secondary); font-size: 12px; margin-top: 20px;">
+                By signing up, you agree to our Terms, Privacy Policy and Cookies Policy.
+            </p>
+        </div>
+        <div class="auth-switch">
+            Have an account? <a id="switch-to-login">Log in</a>
+        </div>
+    </div>
+
+    <!-- Forgot Password Screen -->
+    <div class="auth-container hidden" id="forgot-password-screen">
+        <div class="auth-card">
+            <div class="auth-logo">CNight</div>
+            <p style="color: var(--text-secondary); margin-bottom: 20px; text-align: center;">
+                Enter your username or email and we'll send you a link to reset your password.
+            </p>
+            <form class="auth-form" id="forgot-password-form">
+                <div class="form-group">
+                    <input type="text" id="forgot-email" placeholder="Username or email" required>
+                    <div class="error-message" id="forgot-email-error">Please enter a valid username or email</div>
+                </div>
+                <button type="submit" class="auth-btn">Send Reset Link</button>
+            </form>
+            <div class="auth-separator">
+                <span>OR</span>
+            </div>
+            <div class="auth-forgot" id="back-to-login">Back to Login</div>
+        </div>
+    </div>
+
+    <!-- Main App (initially hidden) -->
+    <div id="app-screen" class="hidden">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">CNight</div>
+            <div class="header-icons">
+                <i class="far fa-heart"></i>
+                <i class="far fa-paper-plane"></i>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content">
+            <!-- Profile Auth Section (shown when not logged in) -->
+            <div class="profile-auth" id="profile-auth-section">
+                <h2 class="profile-auth-title">Join the Creative Community</h2>
+                <div class="profile-auth-buttons">
+                    <button class="profile-auth-btn primary" id="profile-login-btn">Log in</button>
+                    <button class="profile-auth-btn secondary" id="profile-signup-btn">Sign up</button>
+                </div>
+                <p>Log in or sign up to connect with other creatives, share your work, and get inspired.</p>
+            </div>
+
+            <!-- User Profile (shown when logged in) -->
+            <div class="hidden" id="user-profile-section">
+                <!-- User profile content would go here -->
+                <div style="text-align: center; padding: 40px 0;">
+                    <h2>User Profile</h2>
+                    <p>This is where the user's profile content would appear once logged in.</p>
+                    <button class="auth-btn" style="max-width: 200px; margin: 20px auto;" id="logout-btn">Log Out</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation">
+            <div class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-search"></i>
+                <span>Discover</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-plus-square"></i>
+                <span>Create</span>
+            </div>
+            <div class="nav-item">
+                <i class="far fa-heart"></i>
+                <span>Activity</span>
+            </div>
+            <div class="nav-item">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginScreen = document.getElementById('login-screen');
+        const signupScreen = document.getElementById('signup-screen');
+        const forgotScreen = document.getElementById('forgot-password-screen');
+        const appScreen = document.getElementById('app-screen');
+        const profileAuthSection = document.getElementById('profile-auth-section');
+        const userProfileSection = document.getElementById('user-profile-section');
+        
+        // Forms
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const forgotForm = document.getElementById('forgot-password-form');
+        
+        // Navigation Links
+        const switchToSignup = document.getElementById('switch-to-signup');
+        const switchToLogin = document.getElementById('switch-to-login');
+        const forgotPassword = document.getElementById('forgot-password');
+        const backToLogin = document.getElementById('back-to-login');
+        const profileLoginBtn = document.getElementById('profile-login-btn');
+        const profileSignupBtn = document.getElementById('profile-signup-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        // Show a specific screen and hide others
+        function showScreen(screen) {
+            // Hide all screens
+            loginScreen.classList.add('hidden');
+            signupScreen.classList.add('hidden');
+            forgotScreen.classList.add('hidden');
+            appScreen.classList.add('hidden');
+            
+            // Show the requested screen
+            screen.classList.remove('hidden');
+            screen.classList.add('fade-in');
+            
+            // If showing app screen, check login status
+            if (screen === appScreen) {
+                const isLoggedIn = localStorage.getItem('cnight_user');
+                if (isLoggedIn) {
+                    profileAuthSection.classList.add('hidden');
+                    userProfileSection.classList.remove('hidden');
+                } else {
+                    profileAuthSection.classList.remove('hidden');
+                    userProfileSection.classList.add('hidden');
+                }
+            }
+        }
+        
+        // Validate email format
+        function isValidEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        
+        // Validate login form
+        function validateLoginForm() {
+            let isValid = true;
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Reset errors
+            document.getElementById('login-username-error').style.display = 'none';
+            document.getElementById('login-password-error').style.display = 'none';
+            
+            // Validate username
+            if (!username) {
+                document.getElementById('login-username-error').style.display = 'block';
+                document.getElementById('login-username').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate password
+            if (!password || password.length < 6) {
+                document.getElementById('login-password-error').style.display = 'block';
+                document.getElementById('login-password').classList.add('error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        // Validate signup form
+        function validateSignupForm() {
+            let isValid = true;
+            const email = document.getElementById('signup-email').value;
+            const fullname = document.getElementById('signup-fullname').value;
+            const username = document.getElementById('signup-username').value;
+            const password = document.getElementById('signup-password').value;
+            
+            // Reset errors
+            document.getElementById('signup-email-error').style.display = 'none';
+            document.getElementById('signup-fullname-error').style.display = 'none';
+            document.getElementById('signup-username-error').style.display = 'none';
+            document.getElementById('signup-password-error').style.display = 'none';
+            
+            // Validate email
+            if (!email || !isValidEmail(email)) {
+                document.getElementById('signup-email-error').style.display = 'block';
+                document.getElementById('signup-email').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate full name
+            if (!fullname) {
+                document.getElementById('signup-fullname-error').style.display = 'block';
+                document.getElementById('signup-fullname').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate username
+            if (!username || username.length < 3) {
+                document.getElementById('signup-username-error').style.display = 'block';
+                document.getElementById('signup-username').classList.add('error');
+                isValid = false;
+            }
+            
+            // Validate password
+            if (!password || password.length < 6) {
+                document.getElementById('signup-password-error').style.display = 'block';
+                document.getElementById('signup-password').classList.add('error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        // Validate forgot password form
+        function validateForgotForm() {
+            let isValid = true;
+            const email = document.getElementById('forgot-email').value;
+            
+            // Reset error
+            document.getElementById('forgot-email-error').style.display = 'none';
+            
+            // Validate email/username
+            if (!email) {
+                document.getElementById('forgot-email-error').style.display = 'block';
+                document.getElementById('forgot-email').classList.add('error');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        // Remove error class on input
+        function setupInputValidation() {
+            const inputs = document.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        this.classList.remove('error');
+                        const errorElement = this.nextElementSibling;
+                        if (errorElement && errorElement.classList.contains('error-message')) {
+                            errorElement.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        }
+        
+        // Handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            if (validateLoginForm()) {
+                // Simulate successful login
+                const userData = {
+                    username: document.getElementById('login-username').value,
+                    loginTime: new Date().toISOString()
+                };
+                
+                // Store user data in localStorage
+                localStorage.setItem('cnight_user', JSON.stringify(userData));
+                
+                // Show app screen
+                showScreen(appScreen);
+                
+                // Reset form
+                loginForm.reset();
+            }
+        }
+        
+        // Handle signup
+        function handleSignup(e) {
+            e.preventDefault();
+            if (validateSignupForm()) {
+                // Simulate successful signup
+                const userData = {
+                    email: document.getElementById('signup-email').value,
+                    fullname: document.getElementById('signup-fullname').value,
+                    username: document.getElementById('signup-username').value,
+                    signupTime: new Date().toISOString()
+                };
+                
+                // Store user data in localStorage
+                localStorage.setItem('cnight_user', JSON.stringify(userData));
+                
+                // Show app screen
+                showScreen(appScreen);
+                
+                // Reset form
+                signupForm.reset();
+            }
+        }
+        
+        // Handle forgot password
+        function handleForgotPassword(e) {
+            e.preventDefault();
+            if (validateForgotForm()) {
+                // Simulate sending reset link
+                alert('Password reset link has been sent to your email!');
+                showScreen(loginScreen);
+                forgotForm.reset();
+            }
+        }
+        
+        // Handle logout
+        function handleLogout() {
+            // Remove user data from localStorage
+            localStorage.removeItem('cnight_user');
+            
+            // Show login screen
+            showScreen(loginScreen);
+        }
+        
+        // Check if user is already logged in
+        function checkLoginStatus() {
+            const user = localStorage.getItem('cnight_user');
+            if (user) {
+                showScreen(appScreen);
+            } else {
+                showScreen(loginScreen);
+            }
+        }
+        
+        // Initialize the application
+        function initApp() {
+            // Set up event listeners
+            loginForm.addEventListener('submit', handleLogin);
+            signupForm.addEventListener('submit', handleSignup);
+            forgotForm.addEventListener('submit', handleForgotPassword);
+            
+            switchToSignup.addEventListener('click', () => showScreen(signupScreen));
+            switchToLogin.addEventListener('click', () => showScreen(loginScreen));
+            forgotPassword.addEventListener('click', () => showScreen(forgotScreen));
+            backToLogin.addEventListener('click', () => showScreen(loginScreen));
+            profileLoginBtn.addEventListener('click', () => showScreen(loginScreen));
+            profileSignupBtn.addEventListener('click', () => showScreen(signupScreen));
+            logoutBtn.addEventListener('click', handleLogout);
+            
+            // Set up input validation
+            setupInputValidation();
+            
+            // Check if user is already logged in
+            checkLoginStatus();
+        }
+        
+        // Initialize the app when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
