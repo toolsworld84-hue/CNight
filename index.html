@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CNight - Creative Community</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        :root {
+            --primary-color: #405DE6;
+            --secondary-color: #5851DB;
+            --accent-color: #E1306C;
+            --background: #FAFAFA;
+            --surface: #FFFFFF;
+            --text-primary: #262626;
+            --text-secondary: #8E8E8E;
+            --border: #DBDBDB;
+            --success: #4CB5F9;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding-bottom: 60px;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header-icons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .header-icons i {
+            font-size: 24px;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        
+        /* Content Area */
+        .content {
+            margin-top: 60px;
+            padding: 16px;
+        }
+        
+        /* Stories */
+        .stories {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+        
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .story-avatar {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            margin-bottom: 8px;
+        }
+        
+        .story-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: cover;
+        }
+        
+        .story-username {
+            font-size: 12px;
+            color: var(--text-primary);
+        }
+        
+        /* Feed */
+        .feed {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        
+        .post {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+        }
+        
+        .post-user {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .post-user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .post-user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .post-user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .post-username {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .post-location {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .post-more {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .post-image {
+            width: 100%;
+            max-height: 600px;
+            overflow: hidden;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px;
+        }
+        
+        .post-actions-left {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .post-actions-right {
+            display: flex;
+        }
+        
+        .post-actions i {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+        
+        .post-actions i.active {
+            color: var(--accent-color);
+        }
+        
+        .post-likes {
+            padding: 0 16px;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .post-caption {
+            padding: 0 16px;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+        .post-caption-username {
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        
+        .post-comments {
+            padding: 0 16px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        
+        .post-time {
+            padding: 0 16px;
+            color: var(--text-secondary);
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        
+        /* Navigation */
+        .navigation {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 12px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .nav-item i {
+            font-size: 24px;
+            color: var(--text-primary);
+        }
+        
+        .nav-item.active i {
+            color: var(--primary-color);
+        }
+        
+        .nav-item span {
+            font-size: 10px;
+            margin-top: 4px;
+            color: var(--text-primary);
+        }
+        
+        .nav-item.active span {
+            color: var(--primary-color);
+        }
+        
+        /* Profile Screen */
+        .profile-header {
+            padding: 20px 16px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .profile-avatar {
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .profile-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .profile-stat-value {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .profile-stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .profile-bio {
+            padding: 0 16px 16px;
+        }
+        
+        .profile-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .profile-bio-text {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        
+        .profile-website {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .profile-actions {
+            padding: 0 16px 16px;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .profile-action-btn {
+            flex: 1;
+            padding: 8px 0;
+            text-align: center;
+            background-color: #efefef;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .profile-action-btn.primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .profile-highlights {
+            padding: 0 16px 16px;
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+        }
+        
+        .profile-highlight {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .profile-highlight-avatar {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 4px;
+            border: 1px solid var(--border);
+        }
+        
+        .profile-highlight-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-highlight-name {
+            font-size: 12px;
+        }
+        
+        .profile-tabs {
+            display: flex;
+            border-top: 1px solid var(--border);
+        }
+        
+        .profile-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            cursor: pointer;
+        }
+        
+        .profile-tab.active {
+            border-top: 1px solid var(--text-primary);
+        }
+        
+        .profile-tab i {
+            font-size: 20px;
+            color: var(--text-secondary);
+        }
+        
+        .profile-tab.active i {
+            color: var(--text-primary);
+        }
+        
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+        
+        .profile-grid-item {
+            aspect-ratio: 1/1;
+            overflow: hidden;
+        }
+        
+        .profile-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Messages Screen */
+        .messages-header {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .messages-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .messages-actions i {
+            font-size: 24px;
+            margin-left: 16px;
+            cursor: pointer;
+        }
+        
+        .messages-list {
+            padding: 16px 0;
+        }
+        
+        .message-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        
+        .message-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 12px;
+        }
+        
+        .message-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .message-content {
+            flex: 1;
+            border-bottom: 1px solid var(--border);
+            padding: 12px 0;
+        }
+        
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        
+        .message-username {
+            font-weight: 600;
+        }
+        
+        .message-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .message-preview {
+            font-size: 14px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Discover Screen */
+        .discover-header {
+            padding: 12px 16px;
+        }
+        
+        .search-bar {
+            background-color: #efefef;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .search-bar i {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+        
+        .search-bar input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-size: 16px;
+        }
+        
+        .search-bar input:focus {
+            outline: none;
+        }
+        
+        .discover-categories {
+            padding: 16px;
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+        }
+        
+        .discover-category {
+            padding: 8px 16px;
+            background-color: #efefef;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        
+        .discover-category.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .discover-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+        
+        .discover-grid-item {
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .discover-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .discover-grid-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+        
+        /* Activity Screen */
+        .activity-header {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .activity-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .activity-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .activity-tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 0;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .activity-tab.active {
+            border-bottom: 1px solid var(--text-primary);
+        }
+        
+        .activity-list {
+            padding: 16px 0;
+        }
+        
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+        
+        .activity-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 12px;
+        }
+        
+        .activity-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .activity-content {
+            flex: 1;
+        }
+        
+        .activity-text {
+            font-size: 14px;
+        }
+        
+        .activity-text b {
+            font-weight: 600;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        
+        .activity-post {
+            width: 44px;
+            height: 44px;
+            overflow: hidden;
+            margin-left: 12px;
+        }
+        
+        .activity-post img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Create Screen */
+        .create-header {
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .create-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .create-next {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .create-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 16px;
+        }
+        
+        .create-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #efefef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .create-icon i {
+            font-size: 40px;
+            color: var(--text-secondary);
+        }
+        
+        .create-text {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .create-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">CNight</div>
+        <div class="header-icons">
+            <i class="far fa-heart" onclick="showScreen('activity-screen')"></i>
+            <i class="far fa-paper-plane" onclick="showScreen('messages-screen')"></i>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content">
+        <!-- Stories -->
+        <div class="stories">
+            <div class="story">
+                <div class="story-avatar">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Your Story">
+                </div>
+                <div class="story-username">Your Story</div>
+            </div>
+            <div class="story">
+                <div class="story-avatar">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="designer_amy">
+                </div>
+                <div class="story-username">designer_amy</div>
+            </div>
+            <div class="story">
+                <div class="story-avatar">
+                    <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671d66?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="art_jackson">
+                </div>
+                <div class="story-username">art_jackson</div>
+            </div>
+            <div class="story">
+                <div class="story-avatar">
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="photo_sam">
+                </div>
+                <div class="story-username">photo_sam</div>
+            </div>
+            <div class="story">
+                <div class="story-avatar">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="creative_minds">
+                </div>
+                <div class="story-username">creative_minds</div>
+            </div>
+        </div>
+
+        <!-- Feed -->
+        <div class="feed">
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-user">
+                        <div class="post-user-avatar">
+                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="designer_amy">
+                        </div>
+                        <div class="post-user-info">
+                            <div class="post-username">designer_amy</div>
+                            <div class="post-location">New York, NY</div>
+                        </div>
+                    </div>
+                    <div class="post-more">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Design Work">
+                </div>
+                <div class="post-actions">
+                    <div class="post-actions-left">
+                        <i class="far fa-heart" onclick="toggleLike(this)"></i>
+                        <i class="far fa-comment"></i>
+                        <i class="far fa-paper-plane"></i>
+                    </div>
+                    <div class="post-actions-right">
+                        <i class="far fa-bookmark"></i>
+                    </div>
+                </div>
+                <div class="post-likes">12,483 likes</div>
+                <div class="post-caption">
+                    <span class="post-caption-username">designer_amy</span> Just finished this branding project for a new eco-friendly company. What do you think? #design #branding #ecofriendly
+                </div>
+                <div class="post-comments">View all 243 comments</div>
+                <div class="post-time">2 hours ago</div>
+            </div>
+
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-user">
+                        <div class="post-user-avatar">
+                            <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671d66?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="art_jackson">
+                        </div>
+                        <div class="post-user-info">
+                            <div class="post-username">art_jackson</div>
+                            <div class="post-location">London, UK</div>
+                        </div>
+                    </div>
+                    <div class="post-more">
+                        <i class="fas fa-ellipsis-h"></i>
+                    </div>
+                </div>
+                <div class="post-image">
+                    <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Artwork">
+                </div>
+                <div class="post-actions">
+                    <div class="post-actions-left">
+                        <i class="far fa-heart" onclick="toggleLike(this)"></i>
+                        <i class="far fa-comment"></i>
+                        <i class="far fa-paper-plane"></i>
+                    </div>
+                    <div class="post-actions-right">
+                        <i class="far fa-bookmark"></i>
+                    </div>
+                </div>
+                <div class="post-likes">8,921 likes</div>
+                <div class="post-caption">
+                    <span class="post-caption-username">art_jackson</span> New abstract piece I've been working on. Inspired by the city lights at night. #abstractart #citylights #painting
+                </div>
+                <div class="post-comments">View all 187 comments</div>
+                <div class="post-time">5 hours ago</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <div class="nav-item active" onclick="showScreen('home-screen')">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="showScreen('discover-screen')">
+            <i class="fas fa-search"></i>
+            <span>Discover</span>
+        </div>
+        <div class="nav-item" onclick="showScreen('create-screen')">
+            <i class="fas fa-plus-square"></i>
+            <span>Create</span>
+        </div>
+        <div class="nav-item" onclick="showScreen('activity-screen')">
+            <i class="far fa-heart"></i>
+            <span>Activity</span>
+        </div>
+        <div class="nav-item" onclick="showScreen('profile-screen')">
+            <i class="far fa-user"></i>
+            <span>Profile</span>
+        </div>
+    </div>
+
+    <!-- Profile Screen (initially hidden) -->
+    <div id="profile-screen" class="hidden">
+        <div class="header">
+            <div class="logo">CNight</div>
+            <div class="header-icons">
+                <i class="far fa-heart" onclick="showScreen('activity-screen')"></i>
+                <i class="far fa-paper-plane" onclick="showScreen('messages-screen')"></i>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Your Profile">
+                </div>
+                <div class="profile-stats">
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">54</div>
+                        <div class="profile-stat-label">Posts</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">834</div>
+                        <div class="profile-stat-label">Followers</div>
+                    </div>
+                    <div class="profile-stat">
+                        <div class="profile-stat-value">162</div>
+                        <div class="profile-stat-label">Following</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-bio">
+                <div class="profile-name">Alex Morgan</div>
+                <div class="profile-bio-text">Digital artist & photographer. Love to create and inspire.</div>
+                <div class="profile-website">alexmorgan.design</div>
+            </div>
+
+            <div class="profile-actions">
+                <div class="profile-action-btn">Edit Profile</div>
+                <div class="profile-action-btn">Share Profile</div>
+                <div class="profile-action-btn primary">Contact</div>
+            </div>
+
+            <div class="profile-highlights">
+                <div class="profile-highlight">
+                    <div class="profile-highlight-avatar">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Design">
+                    </div>
+                    <div class="profile-highlight-name">Design</div>
+                </div>
+                <div class="profile-highlight">
+                    <div class="profile-highlight-avatar">
+                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Art">
+                    </div>
+                    <div class="profile-highlight-name">Art</div>
+                </div>
+                <div class="profile-highlight">
+                    <div class="profile-highlight-avatar">
+                        <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Photo">
+                    </div>
+                    <div class="profile-highlight-name">Photo</div>
+                </div>
+                <div class="profile-highlight">
+                    <div class="profile-highlight-avatar">
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Work">
+                    </div>
+                    <div class="profile-highlight-name">Work</div>
+                </div>
+            </div>
+
+            <div class="profile-tabs">
+                <div class="profile-tab active">
+                    <i class="fas fa-th"></i>
+                </div>
+                <div class="profile-tab">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </div>
+
+            <div class="profile-grid">
+                <div class="profile-grid-item">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Post">
+                </div>
+                <div class="profile-grid-item">
+                    <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Post">
+                </div>
+                <div class="profile-grid-item">
+                    <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Post">
+                </div>
+                <div class="profile-grid-item">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Post">
+                </div>
+                <div class="profile-grid-item">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Post">
+                </div>
+                <div class="profile-grid-item">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Post">
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-item" onclick="showScreen('home-screen')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('discover-screen')">
+                <i class="fas fa-search"></i>
+                <span>Discover</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('create-screen')">
+                <i class="fas fa-plus-square"></i>
+                <span>Create</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('activity-screen')">
+                <i class="far fa-heart"></i>
+                <span>Activity</span>
+            </div>
+            <div class="nav-item active">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages Screen (initially hidden) -->
+    <div id="messages-screen" class="hidden">
+        <div class="header">
+            <div class="logo">CNight</div>
+            <div class="header-icons">
+                <i class="far fa-heart" onclick="showScreen('activity-screen')"></i>
+                <i class="far fa-paper-plane" onclick="showScreen('messages-screen')"></i>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="messages-header">
+                <div class="messages-title">Messages</div>
+                <div class="messages-actions">
+                    <i class="far fa-edit"></i>
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+
+            <div class="messages-list">
+                <div class="message-item">
+                    <div class="message-avatar">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="designer_amy">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <div class="message-username">designer_amy</div>
+                            <div class="message-time">2h</div>
+                        </div>
+                        <div class="message-preview">Hey! I loved your latest project. Let's collab sometime!</div>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="message-avatar">
+                        <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671d66?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="art_jackson">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <div class="message-username">art_jackson</div>
+                            <div class="message-time">5h</div>
+                        </div>
+                        <div class="message-preview">Are you going to the exhibition next week?</div>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="message-avatar">
+                        <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="photo_sam">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <div class="message-username">photo_sam</div>
+                            <div class="message-time">1d</div>
+                        </div>
+                        <div class="message-preview">Thanks for the feedback on my portfolio!</div>
+                    </div>
+                </div>
+                <div class="message-item">
+                    <div class="message-avatar">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="creative_minds">
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <div class="message-username">creative_minds</div>
+                            <div class="message-time">2d</div>
+                        </div>
+                        <div class="message-preview">We're hosting a workshop next month. Would you like to speak?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-item" onclick="showScreen('home-screen')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('discover-screen')">
+                <i class="fas fa-search"></i>
+                <span>Discover</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('create-screen')">
+                <i class="fas fa-plus-square"></i>
+                <span>Create</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('activity-screen')">
+                <i class="far fa-heart"></i>
+                <span>Activity</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('profile-screen')">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Discover Screen (initially hidden) -->
+    <div id="discover-screen" class="hidden">
+        <div class="header">
+            <div class="logo">CNight</div>
+            <div class="header-icons">
+                <i class="far fa-heart" onclick="showScreen('activity-screen')"></i>
+                <i class="far fa-paper-plane" onclick="showScreen('messages-screen')"></i>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="discover-header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+            </div>
+
+            <div class="discover-categories">
+                <div class="discover-category active">All</div>
+                <div class="discover-category">Design</div>
+                <div class="discover-category">Art</div>
+                <div class="discover-category">Photography</div>
+                <div class="discover-category">Digital</div>
+                <div class="discover-category">Illustration</div>
+            </div>
+
+            <div class="discover-grid">
+                <div class="discover-grid-item">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Discover">
+                </div>
+                <div class="discover-grid-item">
+                    <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Discover">
+                </div>
+                <div class="discover-grid-item large">
+                    <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Discover">
+                </div>
+                <div class="discover-grid-item">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Discover">
+                </div>
+                <div class="discover-grid-item">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Discover">
+                </div>
+                <div class="discover-grid-item large">
+                    <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80" alt="Discover">
+                </div>
+                <div class="discover-grid-item">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Discover">
+                </div>
+                <div class="discover-grid-item">
+                    <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=300&q=80" alt="Discover">
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-item" onclick="showScreen('home-screen')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item active">
+                <i class="fas fa-search"></i>
+                <span>Discover</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('create-screen')">
+                <i class="fas fa-plus-square"></i>
+                <span>Create</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('activity-screen')">
+                <i class="far fa-heart"></i>
+                <span>Activity</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('profile-screen')">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Activity Screen (initially hidden) -->
+    <div id="activity-screen" class="hidden">
+        <div class="header">
+            <div class="logo">CNight</div>
+            <div class="header-icons">
+                <i class="far fa-heart" onclick="showScreen('activity-screen')"></i>
+                <i class="far fa-paper-plane" onclick="showScreen('messages-screen')"></i>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="activity-header">
+                <div class="activity-title">Activity</div>
+            </div>
+
+            <div class="activity-tabs">
+                <div class="activity-tab active">All</div>
+                <div class="activity-tab">Likes</div>
+                <div class="activity-tab">Comments</div>
+                <div class="activity-tab">Follows</div>
+            </div>
+
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="designer_amy">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text"><b>designer_amy</b> liked your post</div>
+                        <div class="activity-time">10 minutes ago</div>
+                    </div>
+                    <div class="activity-post">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Post">
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671d66?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="art_jackson">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text"><b>art_jackson</b> started following you</div>
+                        <div class="activity-time">45 minutes ago</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="photo_sam">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text"><b>photo_sam</b> commented: "Great work on this piece!"</div>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                    <div class="activity-post">
+                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="Post">
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-avatar">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80" alt="creative_minds">
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-text"><b>creative_minds</b> mentioned you in a comment</div>
+                        <div class="activity-time">5 hours ago</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-item" onclick="showScreen('home-screen')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('discover-screen')">
+                <i class="fas fa-search"></i>
+                <span>Discover</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('create-screen')">
+                <i class="fas fa-plus-square"></i>
+                <span>Create</span>
+            </div>
+            <div class="nav-item active">
+                <i class="far fa-heart"></i>
+                <span>Activity</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('profile-screen')">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Screen (initially hidden) -->
+    <div id="create-screen" class="hidden">
+        <div class="header">
+            <div class="logo">CNight</div>
+            <div class="header-icons">
+                <i class="far fa-heart" onclick="showScreen('activity-screen')"></i>
+                <i class="far fa-paper-plane" onclick="showScreen('messages-screen')"></i>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="create-header">
+                <div class="create-title">Create New Post</div>
+                <div class="create-next">Next</div>
+            </div>
+
+            <div class="create-container">
+                <div class="create-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="create-text">Upload Photos and Videos</div>
+                <div class="create-btn">Select from device</div>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-item" onclick="showScreen('home-screen')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('discover-screen')">
+                <i class="fas fa-search"></i>
+                <span>Discover</span>
+            </div>
+            <div class="nav-item active">
+                <i class="fas fa-plus-square"></i>
+                <span>Create</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('activity-screen')">
+                <i class="far fa-heart"></i>
+                <span>Activity</span>
+            </div>
+            <div class="nav-item" onclick="showScreen('profile-screen')">
+                <i class="far fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle like button
+        function toggleLike(element) {
+            element.classList.toggle('far');
+            element.classList.toggle('fas');
+            element.classList.toggle('active');
+        }
+        
+        // Show specific screen and hide others
+        function showScreen(screenId) {
+            // Hide all screens
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            
+            // Show the selected screen
+            document.getElementById(screenId).classList.remove('hidden');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate the corresponding nav item
+            const navItems = document.querySelectorAll('.nav-item');
+            for (let item of navItems) {
+                if (item.onclick && item.onclick.toString().includes(screenId)) {
+                    item.classList.add('active');
+                    break;
+                }
+            }
+        }
+        
+        // Initialize the home screen
+        document.getElementById('home-screen').classList.remove('hidden');
+    </script>
+</body>
+</html>
